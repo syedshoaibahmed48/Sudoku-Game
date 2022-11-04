@@ -1,0 +1,29 @@
+<!Doctype html>
+<hmtl>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sudoku</title>
+        <link rel="stylesheet" href="Sudoku.css"/>
+        <script src="Sudoku.js"></script>
+        <script src="GenerateSudoku.js"></script>
+        <script src="SolveSudoku.js"></script>
+    </head>
+
+    <body>
+        <h1 id="title">Sudoku</h1>
+        <button id="clearButton" title="clears the whole sudoku board" onclick="clearGrid()">Clear</button>
+        <button id="resetButton" title="resets the current puzzle" onclick="resetGrid()">Reset</button>
+        <button id="solveButton" title="solves the puzzle" onclick="writeSolution()">Solve</button>
+        <button id="easyButton" title="35 hints" onclick="easy()">Easy</button>
+        <button id="mediumButton" title="25 hints" onclick="medium()">Medium</button>
+        <button id="hardButton" title="20 hints" onclick="hard()">Hard</button>
+        <hr>
+        
+        <div id="board"></div>
+
+        <div id="options"></div>
+
+
+
+    </body>
+</hmtl>

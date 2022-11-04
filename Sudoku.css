@@ -1,0 +1,45 @@
+body{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    caret-color: transparent;/*to hide text cursor a.k.a caret*/
+}
+
+#title{
+    margin-top: -5px;
+}
+
+hr{
+    width: 580px;
+    height: 2px;
+    background-color: black;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* hides the spinners in the inputboxes */
+    appearance: none;
+}
+
+#board{
+    text-align: center;
+}
+
+#options{
+    margin-top: 10px;
+}
+
+.cell{
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    font-size: 30px;
+    border-width: thin;
+    border-style: dotted;
+}
+
+.generatedCell{
+    background-color: #c9c4c7e2;
+}
+
+.wrongInput{
+    color: red;
+}
