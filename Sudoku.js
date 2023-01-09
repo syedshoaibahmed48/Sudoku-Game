@@ -3,30 +3,28 @@ window.onload = function(){//works on page load
     medium();
 }
 
-option=0;
+mode = "random";
 
-async function setValue(){//sets value(var option) for a cell and check if it isValid 
-    if(option==0 || this.classList.contains("generatedCell")){
-        return;
-    }
-    this.value=option;
+function randomMode(){//sets mode to random
+    mode="random";
+}
+
+function customMode(){//sets mode to custom
+    mode="custom";
+    clearGrid();
+}
+
+async function validateInput(){
     row=this.id.charAt(5);
     col=this.id.charAt(7);
-    if(!isValid(row,col,option)){//if 
+    val=this.value;
+    if(isNaN(parseInt(val)) || !isValid(row,col,val) || parseInt(val)===0){
         this.classList.add("wrongInput");
         await new Promise(r => setTimeout(r, 500));//wait 0.5 sec
         this.classList.remove("wrongInput");
+        this.classList.remove("generatedCell");
         this.value="";
     }
-    isComplete();
-}
-
-function selectValue(){//save option chosen in var option 
-    option=this.value;
-}
-
-function eraseValue(){//since inputs are fixed for ints this will empty them
-    option="erase";//string "erase" has no significance any str can do
 }
 
 function createGrid(){//creates 9x9 grid
@@ -36,10 +34,10 @@ function createGrid(){//creates 9x9 grid
             cell=document.createElement("input");
             cell.id="cell("+i+","+j+")";
             cell.classList.add("cell");
-            cell.type="number";
+            cell.type="text";
             cell.style.cursor="pointer";
-            cell.setAttribute("readonly",true);
-            cell.addEventListener("click", setValue);
+            cell.setAttribute("maxlength","1");
+            cell.addEventListener("change", validateInput);
             if(i==2 || i==5 || i==8){
                 cell.style.borderBottom="2px solid black"
             }
@@ -58,27 +56,6 @@ function createGrid(){//creates 9x9 grid
         lineBreak=document.createElement("br");
         document.getElementById("board").appendChild(lineBreak);
     }
-
-    for(i=1;i<=9;i++){
-        // creates <input class="cell" id="option-i"  onClick="selectValue();" readonly> i </input>
-        cell=document.createElement("input");
-        cell.id="option-"+i;
-        cell.classList.add("cell");
-        cell.setAttribute("readonly",true);
-        cell.addEventListener("click", selectValue);
-        cell.value=i;
-        cell.style.cursor="pointer";
-        document.getElementById("options").appendChild(cell);
-    }
-    cell=document.createElement("input")//erase the cell value option
-    cell.id="erase";
-    cell.value="del";
-    cell.classList.add("cell");
-    cell.setAttribute("readonly",true);
-    cell.addEventListener("click", eraseValue);
-    cell.style.padding="1px";
-    cell.style.cursor="pointer";
-    document.getElementById("options").appendChild(cell);
 }
 
 function resetGrid(){//empties all except generated cells
@@ -98,14 +75,4 @@ function clearGrid(){//empties all cells of grid
             cell.className="cell";
         }
     }
-}
-
-async function isComplete(){//check if sudoku board is filled
-    await new Promise(r => setTimeout(r, 500));//wait 0.5 sec
-    for(i=0;i<9;i++){
-        for(j=0;j<9;j++){
-            if(document.getElementById("cell("+i+","+j+")").value=="") return;
-        }
-    }
-    alert("Congratulations, the sudoku is solved 🎉");
 }

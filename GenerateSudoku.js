@@ -16,6 +16,24 @@ function hard(){//function to generate hard sudoku
     writeGrid(grid);
 }
 
+function setDifficulty(difficulty){//To set difficulty using dropdown
+    document.getElementById("difficulty").innerHTML=difficulty;
+    dropdown=document.getElementById("dropdownMenu");
+    if(difficulty=="Easy"){
+        easy();
+        dropdown.style.backgroundColor="green";
+    }
+    else if(difficulty=="Medium"){
+        medium();
+        dropdown.style.backgroundColor="#CC5500";
+    }
+    else{
+        hard();
+        dropdown.style.backgroundColor="red";
+    }
+    if(mode!="random") randomMode();
+}
+
 function generateSudoku(numbers){//generates a random sudoku
 
     while(1){

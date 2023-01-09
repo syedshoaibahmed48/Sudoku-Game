@@ -1,0 +1,62 @@
+.navbar{
+    background-color: #c9c4c7e2;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    padding-top: 0px !important;
+}
+
+.navbar-title{
+    margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.vl{
+    margin-left: 10px;
+    border-left: 6px solid grey;
+    height: 60px;
+  }
+
+#board{
+    margin-top: 20px;
+    text-align: center;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* hides the spinners in the inputboxes */
+    appearance: none;
+}
+
+.cell{
+    height: 65px;
+    width: 65px;
+    text-align: center;
+    font-size: 40px;
+    border-width: thin;
+    border-style: dotted;
+}
+
+.generatedCell{
+    background-color: #c9c4c7e2;
+}
+
+.wrongInput{
+    color: red;
+}
+
+#dropdownMenu{
+    background-color:#CC5500;
+    font-size: large;
+}
+
+
+#resetButton, #solveButton, #hintButton, #customPuzzleButton{
+    color: white;
+    background-color:cadetblue;
+}
+
+#customPuzzleButton{
+    margin-right: 10px;
+    width: 180px;
+}

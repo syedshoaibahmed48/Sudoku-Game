@@ -29,13 +29,14 @@ function isValidStep(sudoku, row, col, num){//check is num can be placed in sudo
     return true;
 }
 
-function getGrid(){
+function getGrid(){//gets current instance of sudoku board
     sudoku=[];
     for(let i=0;i<9;i++){
         let row=[];
         for(let j=0;j<9;j++){
-            let number=document.getElementById("cell("+i+","+j+")").value;
-            if(number=="") row.push(0);
+            cell=document.getElementById("cell("+i+","+j+")");
+            let number=cell.value;
+            if(number=="" || (!cell.classList.contains("generatedCell") && mode==="random")) row.push(0);
             else row.push(parseInt(number));
         }
         sudoku.push(row);
@@ -43,7 +44,7 @@ function getGrid(){
     return sudoku;
 }
 
-function getSolution(sudoku){
+function getSolution(sudoku){//solves the puzzle returns false if unsolvable
     let row = -1;
     let col = -1;
     let isFilled = true;
@@ -71,7 +72,7 @@ function getSolution(sudoku){
     return false;
 }
 
-function isSolvable(sudoku){
+function isSolvable(sudoku){//check if user specified board is solvable or not
     puzzle=JSON.parse(JSON.stringify(sudoku));//to copy sudoku values to puzzle without reference, because  
     let row = -1;                             // in this function we are not solving sudoku
     let col = -1;                             // but checking if it is solvable or not.
@@ -100,9 +101,13 @@ function isSolvable(sudoku){
     return false;
 }
 
-function writeSolution(){
-    resetGrid();
+function writeSolution(){//write solution to board
+    if(mode==="random") resetGrid();
     sudoku=getGrid();
+    if(!isSolvable(sudoku)){
+        alert("The puzzle is not solvable");
+        return;
+    } 
     getSolution(sudoku);
     for(i=0;i<9;i++){
         for(j=0;j<9;j++){
@@ -110,4 +115,31 @@ function writeSolution(){
         }
     }
     isComplete();
+}
+
+function hint(){//provide 1 hint
+    sudoku=getGrid();
+    getSolution(sudoku);
+    for(i=0;i<9;i++){
+        done=false;
+        for(j=0;j<9;j++){
+            if(document.getElementById("cell("+i+","+j+")").value!=""+sudoku[i][j]){
+                document.getElementById("cell("+i+","+j+")").value=""+sudoku[i][j];
+                done=true;
+                break;
+            }            
+        }
+        if(done) break;
+    }
+}
+
+async function isComplete(){//check if sudoku board is filled
+    await new Promise(r => setTimeout(r, 500));//wait 0.5 sec
+    complete=true;
+    for(i=0;i<9;i++){
+        for(j=0;j<9;j++){
+            if(document.getElementById("cell("+i+","+j+")").value=="") complete=false;
+        }
+    }
+    if(complete) alert("Congratulations, the sudoku is solved 🎉");
 }
